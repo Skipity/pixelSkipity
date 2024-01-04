@@ -1,0 +1,155 @@
+<div class="container-fluid">
+    <div>
+        <h3>E-mail Setup</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">Settings</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">E-mail Setup</li>
+            </ol>
+        </nav>
+    </div>
+
+
+
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">E-mail Configuration</h6>
+                    <form class="form email-settings-form" method="POST">
+                        <label for="smtp_or_mail" class="main-label">Server Type</label>
+                        <br><small class="admin-info">Select which E-mail server you want to use, Server Mail function is not recommended.</small>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="smtp_or_mail">
+                                <option value="smtp" <?php if($config['smtp_or_mail'] == 'smtp'){ echo("selected");}?>>SMTP Server</option>
+                                <option value="mail" <?php if($config['smtp_or_mail'] == 'mail'){ echo("selected");}?>>Server Mail (Default)</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Website Default E-mail</label>
+                                <input type="text" name="site_email" class="form-control" value="<?php echo $config['site_email']?>"><small class="admin-info">This is your default website E-mail, this will be used to send E-mails to users.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">SMTP Host</label>
+                                <input type="text" name="smtp_host" class="form-control" value="<?php echo $config['smtp_host']?>"><small class="admin-info">Your SMTP account host name, can be IP, domain or subdomain.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">SMTP Username</label>
+                                <input type="text" name="smtp_username" class="form-control" value="<?php echo $config['smtp_username']?>"><small class="admin-info">Your SMTP account username.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">SMTP Password</label>
+                                <input type="text" name="smtp_password" class="form-control" value="<?php echo openssl_decrypt($config['smtp_password'], "AES-128-ECB", 'mysecretkey1234');?>"><small class="admin-info">Your SMTP account password.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">SMTP Port</label>
+                                <input type="text" name="smtp_port" class="form-control" value="<?php echo $config['smtp_port']?>"><small class="admin-info">Which port does your SMTP server use? most used 587 for TLS, and 465 for SSL encryption.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="smtp_encryption" class="main-label">SMTP Encryption</label>
+                        <br><small class="admin-info">Which encryption method does your SMTP server use?</small>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="smtp_encryption">
+                                <option value="tls" <?php if($config['smtp_encryption'] == 'tls'){ echo("selected");}?>>TLS</option>
+                                <option value="ssl" <?php if($config['smtp_encryption'] == 'ssl'){ echo("selected");}?>>SSL</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+$(function() {
+    $('.switcher input[type=checkbox]').click(function () {
+        var configName = $(this).attr('name');
+        var hash_id = $('input[name=hash_id]').val();
+        var objData = {};
+        if ($(this).is(":checked") === true) {
+            objData[configName] = $(this).val();
+        }
+        else{
+            if ($('input[name='+configName+']')[0]) {
+                objData[configName] = $($('input[name='+configName+']')[0]).val();
+            }
+        }
+        objData['hash_id'] = hash_id;
+        $.post(acpajax_url('email-settings'), objData);
+    });
+
+    var setTimeOutColor = setTimeout(function (){});
+    $('select').on('change', function() {
+         clearTimeout(setTimeOutColor);
+        var thisElement = $(this);
+        var configName = thisElement.attr('name');
+        var hash_id = $('input[name=hash_id]').val();
+        var objData = {};
+        objData[configName] = thisElement.val();
+        objData['hash_id'] = hash_id;
+        thisElement.addClass('warning');
+        $.post(acpajax_url('email-settings'), objData, function (data) {
+            if (data.status == 200) {
+                thisElement.removeClass('warning');
+                thisElement.addClass('success');
+            } else {
+                thisElement.addClass('error');
+            }
+            var setTimeOutColor = setTimeout(function () {
+                thisElement.removeClass('success');
+                thisElement.removeClass('warning');
+                thisElement.removeClass('error');
+            }, 2000);
+        });
+    });
+    $('input[type=text], input[type=number] , textarea').on('keyup', delay(function() {
+            clearTimeout(setTimeOutColor);
+            var thisElement = $(this);
+            var configName = thisElement.attr('name');
+            var hash_id = $('input[name=hash_id]').val();
+            var objData = {};
+            objData[configName] = this.value;
+            objData['hash_id'] = hash_id;
+            thisElement.addClass('warning');
+            $.post(acpajax_url('email-settings'), objData, function (data) {
+                if (data.status == 200) {
+                    thisElement.removeClass('warning');
+                    thisElement.addClass('success');
+                } else {
+                    thisElement.addClass('error');
+                }
+                var setTimeOutColor = setTimeout(function () {
+                    thisElement.removeClass('success');
+                    thisElement.removeClass('warning');
+                    thisElement.removeClass('error');
+                }, 2000);
+                //thisElement.focus();
+            });
+    }, 500));
+});
+</script>

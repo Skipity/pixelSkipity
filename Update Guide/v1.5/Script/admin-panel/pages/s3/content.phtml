@@ -1,0 +1,596 @@
+<?php
+$config['ffmpeg']  = is_executable($config['ffmpeg_binary']);
+function isEnabled($func) {
+    return is_callable($func) && false === stripos(ini_get('disable_functions'), $func);
+}
+$enabled = true;
+if (!isEnabled('shell_exec')) {
+    $enabled = false;
+}
+?>
+<div class="container-fluid">
+    <div>
+        <h3>File Upload Configuration</h3>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="#">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="#">Settings</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">File Upload Configuration</li>
+            </ol>
+        </nav>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Upload & Import File Sharing Configuration</h6>
+                    <form class="form general-settings-form">
+                        <div class="float-left">
+                            <label for="upload_images" class="main-label">Upload Images System</label>
+                            <br><small class="admin-info">Allow users to upload images.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="upload_images" value="off" />
+                            <input type="checkbox" name="upload_images" id="chck-upload_images" value="on" <?php echo ($config['upload_images'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-upload_images" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="upload_videos" class="main-label">Upload Video System</label>
+                            <br><small class="admin-info">Allow users to upload videos.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="upload_videos" value="off" />
+                            <input type="checkbox" name="upload_videos" id="chck-upload_videos" value="on" <?php echo ($config['upload_videos'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-upload_videos" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="upload_360_videos" class="main-label">Upload 360-Degree Video</label>
+                            <br><small class="admin-info">Allow users to upload 360-Degree videos.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="upload_360_videos" value="off" />
+                            <input type="checkbox" name="upload_360_videos" id="chck-upload_360_videos" value="on" <?php echo ($config['upload_360_videos'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-upload_360_videos" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="upload_reels" class="main-label">Upload Reels System</label>
+                            <br><small class="admin-info">Allow users to upload 360-Degree Reels.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="upload_reels" value="off" />
+                            <input type="checkbox" name="upload_reels" id="chck-upload_reels" value="on" <?php echo ($config['upload_reels'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-upload_reels" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="import_videos" class="main-label">Import Video System</label>
+                            <br><small class="admin-info">Allow users to import videos from third party websites.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="import_videos" value="off" />
+                            <input type="checkbox" name="import_videos" id="chck-import_videos" value="on" <?php echo ($config['import_videos'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-import_videos" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="import_images" class="main-label">Import Images System</label>
+                            <br><small class="admin-info">Allow users to import images from third party websites.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="import_images" value="off" />
+                            <input type="checkbox" name="import_images" id="chck-import_images" value="on" <?php echo ($config['import_images'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-import_images" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="float-left">
+                            <label for="mp4_links" class="main-label">Import Videos (MP4 Links)</label>
+                            <br><small class="admin-info">Allow users to import videos from mp4 links.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="mp4_links" value="off" />
+                            <input type="checkbox" name="mp4_links" id="chck-mp4_links" value="on" <?php echo ($config['mp4_links'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-mp4_links" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <label for="max_upload" class="main-label">Max Upload Size</label>
+                        <br><small class="admin-info">Set the max upload size.</small>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="max_upload">
+                                <option value="2000000" <?php if($config['max_upload'] == '2000000'){ echo("selected");}?>>2MB</option>
+                                <option value="6000000" <?php if($config['max_upload'] == '6000000'){ echo("selected");}?>>6MB</option>
+                                <option value="12000000" <?php if($config['max_upload'] == '12000000'){ echo("selected");}?>>12MB</option>
+                                <option value="24000000" <?php if($config['max_upload'] == '24000000'){ echo("selected");}?>>24MB</option>
+                                <option value="48000000" <?php if($config['max_upload'] == '48000000'){ echo("selected");}?>>48MB</option>
+                                <option value="96000000" <?php if($config['max_upload'] == '96000000'){ echo("selected");}?>>96MB</option>
+                                <option value="256000000" <?php if($config['max_upload'] == '256000000'){ echo("selected");}?>>256MB</option>
+                                <option value="512000000" <?php if($config['max_upload'] == '512000000'){ echo("selected");}?>>512MB</option>
+                                <option value="1000000000" <?php if($config['max_upload'] == '1000000000'){ echo("selected");}?>>1GB</option>
+                                <option value="10000000000" <?php if($config['max_upload'] == '10000000000'){ echo("selected");}?>>10GB</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Limit Storage For Free Users (In case PRO is enabled)</label>
+                                <input type="text" name="free_user_storage_limit" class="form-control" value="<?php echo $config['free_user_storage_limit']?>"><small class="admin-info">Size in Kilobyte, 0 for unlimited.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="col-lg-12 col-md-12">
+            <h3>FFMPEG Video Converter Settings <hr></h3>
+        </div> -->
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">FFMPEG Configuration</h6>
+
+                    <form class="ffmpeg-settings" method="POST">
+                        <div class="float-left">
+                            <label for="ffmpeg_sys" class="main-label">FFMPEG System</label>
+                            <br><small class="admin-info">This system will compress, convert, and optimzise videos to mp4. <br>This system require "ffmpeg" to be installed in your server.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="ffmpeg_sys" value="off" />
+                            <input type="checkbox" name="ffmpeg_sys" id="chck-ffmpeg_sys" value="on" <?php echo ($config['ffmpeg_sys'] == 'on') ? 'checked': '';?>>
+                            <label for="chck-ffmpeg_sys" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <?php if ($enabled == false): ?>
+                            <div class="alert alert-danger">
+                                shell_exec() has been disabled for security reasons, please contact your host provider to enable it. shell_exec is required to enable this system.
+                            </div>
+                        <?php endif; ?>
+                        <hr>
+                        <div class="form-group  form-float">
+                            <div class="form-line">
+                                <?php if (!$config['ffmpeg']): ?>
+                                <div class="alert alert-danger">FFmpeg binary does not exist on path: <?php echo $config['ffmpeg_binary'] ?></div>
+                                <?php else: ?>
+                                <label class="form-label ">FFMPEG Binary File Path</label>
+                                <?php endif; ?>
+                                <input type="text" id="ffmpeg_binary" name="ffmpeg_binary" class="form-control" value="<?php echo $config['ffmpeg_binary'] ?>">
+                                <small class="admin-info">Example: Linux(/usr/bin/ffmpeg) or Windows(C:\\ffmpeg\bin\ffmpeg.exe)</small>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Max video duration in seconds</label>
+                                <input type="text" name="max_video_duration" class="form-control" value="<?php echo $config['max_video_duration']?>"><small class="admin-info">Max video duration in seconds</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label>How to install FFMPEG?</label><br>
+                        <small class="admin-info"><a href="https://www.vultr.com/docs/how-to-install-ffmpeg-on-centos" target="_blank">Install FFMPEG on Linux Centos</a><br></small>
+                        <small class="admin-info"><a href="https://github.com/adaptlearning/adapt_authoring/wiki/Installing-FFmpeg" target="_blank">Install FFMPEG on Linux Ubuntu | Windows</a></small>
+                        <small class="admin-info">If you still can't install FFMPEG, please contact your hosting provider, and they shall install it.</small>
+                        <div class="ffmpeg-settings-alert"></div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+            <h3>Storage & CDN Configuration <br><hr></h3>
+             <div class="alert alert-warning">
+                <i class="fa fa-fw fa-exclamation-triangle"></i> <strong>Important:</strong> You can't enable two or three storages at the same time, if you enable FTP, amazon s3 will be automatically disabled, same for amazon s3, Digitalocean and Google.
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Amazon S3 Configuration</h6>
+                    <form class="form login-settings-form" method="POST">
+                        <div class="float-left">
+                            <label for="amazone_s3" class="main-label">Amazon S3 Storage</label>
+                            <br><small class="admin-info">Enable Amazon Storage to store your files in Amazon S3.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="amazone_s3" value="0" />
+                            <input type="checkbox" name="amazone_s3" id="chck-amazone_s3" value="1" <?php echo ($config['amazone_s3'] == 1) ? 'checked': '';?>>
+                            <label for="chck-amazone_s3" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Amazon Bucket Name</label>
+                                <input type="text" name="bucket_name" class="form-control" value="<?php echo $config['bucket_name']?>"><small class="admin-info">Your Amazon S3 <a href="https://docs.aws.amazon.com/AmazonS3/latest/userguide/creating-bucket.html" target="_blank">Bucket Name</a></small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Amazon S3 Key</label>
+                                <input type="text" name="amazone_s3_key" class="form-control" value="<?php echo $config['amazone_s3_key']?>"><small class="admin-info">Your Amazon Key from <a href="https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html" target="_blank">AWS credentials</a></small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Amazon S3 Secret Key</label>
+                                <input type="text" name="amazone_s3_s_key" class="form-control" value="<?php echo $config['amazone_s3_s_key']?>"><small class="admin-info">Your Amazon Secret from <a href="https://docs.aws.amazon.com/general/latest/gr/aws-sec-cred-types.html" target="_blank">AWS credentials</a></small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="region" class="main-label">Amazon S3 bucket Region</label>
+                        <br><small class="admin-info">Your Amazon's S3 Region</small>
+                        <div class="form-group">
+                            <select class="form-control show-tick" name="region">
+                                <option value="us-east-1" <?php echo ($config['region'] == 'us-east-1')   ? ' selected' : '';?> >US East (N. Virginia)</option>
+                                <option value="us-east-2" <?php echo ($config['region'] == 'us-east-2')   ? ' selected' : '';?> >US East (Ohio)</option>
+                                <option value="us-west-1" <?php echo ($config['region'] == 'us-west-1')   ? ' selected' : '';?> >US West (N. California)</option>
+                                <option value="us-west-2" <?php echo ($config['region'] == 'us-west-2')   ? ' selected' : '';?> >US West (Oregon)</option>
+                                <option value="ap-northeast-2" <?php echo ($config['region'] == 'ap-northeast-2')   ? ' selected' : '';?> >Asia Pacific (Seoul)</option>
+                                <option value="ap-south-1" <?php echo ($config['region'] == 'ap-south-1')   ? ' selected' : '';?> >Asia Pacific (Mumbai)</option>
+                                <option value="ap-southeast-1" <?php echo ($config['region'] == 'ap-southeast-1')   ? ' selected' : '';?> >Asia Pacific (Singapore)</option>
+                                <option value="ap-southeast-2" <?php echo ($config['region'] == 'ap-southeast-2')   ? ' selected' : '';?> >Asia Pacific (Sydney)</option>
+                                <option value="ap-northeast-1" <?php echo ($config['region'] == 'ap-northeast-1')   ? ' selected' : '';?> >Asia Pacific (Tokyo)</option>
+                                <option value="ca-central-1" <?php echo ($config['region'] == 'ca-central-1')   ? ' selected' : '';?> >Canada (Central)</option>
+                                <option value="eu-central-1" <?php echo ($config['region'] == 'eu-central-1')   ? ' selected' : '';?> >EU (Frankfurt)</option>
+                                <option value="eu-west-1" <?php echo ($config['region'] == 'eu-west-1')   ? ' selected' : '';?> >EU (Ireland)</option>
+                                <option value="eu-west-2" <?php echo ($config['region'] == 'eu-west-2')   ? ' selected' : '';?> >EU (London)</option>
+                                <option value="sa-east-1" <?php echo ($config['region'] == 'sa-east-1')   ? ' selected' : '';?> >South America (São Paulo)</option>
+                            </select>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="alert alert-info">
+                           Before enabling Amazon S3, make sure you upload the whole "upload/" folder to your bucket. <br><br>
+                            Before disabling Amazon S3, make sure you download the whole "upload/" folder to your server.<br><br>
+                            We recommend to upload the folder and files via <a href="http://s3tools.org/s3cmd">S3cmd</a>.<br><br>
+                            If your site is still brand new, you can escape the upload step, but make sure to click on "Test Connection".<br>
+                        </div>
+                        <div class="general-settings-alert"></div>
+                        <button type="button" class="btn btn-success m-t-15 waves-effect" onclick="Wo_TestS3()" id="s3test">Test Connection</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Digitalocean Spaces Configuration</h6>
+                    <form class="form spaces-settings" method="POST">
+                        <div class="float-left">
+                            <label for="digital_ocean" class="main-label">Digitalocean Spaces Storage</label>
+                            <br><small class="admin-info">Enable Digitalocean Storage to store your files in Digitalocean Spaces.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="digital_ocean" value="0" />
+                            <input type="checkbox" name="digital_ocean" id="chck-digital_ocean" value="1" <?php echo ($config['digital_ocean'] == 1) ? 'checked': '';?>>
+                            <label for="chck-digital_ocean" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Digitalocean Space Name</label>
+                                <input type="text" name="digital_ocean_space_name" class="form-control" value="<?php echo $config['digital_ocean_space_name']?>"><small class="admin-info">Your Digitalocean Space Bucket name.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Digitalocean Key</label>
+                                <input type="text" name="digital_ocean_key" class="form-control" value="<?php echo $config['digital_ocean_key']?>"><small class="admin-info">Your Digitalocean Space credentials key.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Digitalocean Secret</label>
+                                <input type="text" name="digital_ocean_s_key" class="form-control" value="<?php echo $config['digital_ocean_s_key']?>"><small class="admin-info">Your Digitalocean Space credentials secret key.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <label for="space_region">Digitalocean bucket region</label>
+                        <select class="form-control show-tick" id="digital_ocean_region" name="digital_ocean_region">
+                          <option value="nyc3" <?php echo ($config['digital_ocean_region'] == 'nyc3')   ? ' selected' : '';?> >New York</option>
+                          <option value="ams3" <?php echo ($config['digital_ocean_region'] == 'ams3')   ? ' selected' : '';?> >Amsterdam</option>
+                          <option value="sgp1" <?php echo ($config['digital_ocean_region'] == 'sgp1')   ? ' selected' : '';?> >Singapore</option>
+                          <option value="FRA1" <?php echo ($config['digital_ocean_region'] == 'FRA1')   ? ' selected' : '';?> >Frankfurt</option>
+                        </select>
+                        <div class="clearfix"></div>
+                        <br>
+                        <div class="alert alert-info">
+                            Before enabling Digitalocean, make sure you upload the whole "upload/" folder to your bucket. <br><br>
+                            Before disabling Digitalocean, make sure you download the whole "upload/" folder to your server. <br><br>
+                            If your site is still brand new, you can escape the upload step, but make sure to click on "Test Connection". <br>
+                        </div>
+                        <div class="spaces-settings-alert"></div>
+                        <button type="button" class="btn btn-success m-t-15 waves-effect" onclick="Wo_TestSpaces()" id="s3test">Test & Verify Connection</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">Google Cloud Settings</h6>
+                    <form class="form google-settings-form" method="POST">
+                        <div class="float-left">
+                            <label for="google_cloud_storage" class="main-label">Google Cloud Storage</label>
+                            <br><small class="admin-info">Enable Google Cloud Storage to store your files in Google Cloud.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="google_cloud_storage" value="0" />
+                            <input type="checkbox" name="google_cloud_storage" id="chck-google_cloud_storage" value="1" <?php echo ($config['google_cloud_storage'] == 1) ? 'checked': '';?>>
+                            <label for="chck-google_cloud_storage" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Google Cloud Bucket Name</label>
+                                <input type="text" name="google_cloud_storage_bucket_name" class="form-control" value="<?php echo $config['google_cloud_storage_bucket_name']?>"><small class="admin-info">Google cloud storage Bucket Name</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">Google Cloud File</label>
+                                <textarea rows="8" name="google_cloud_storage_service_account" class="form-control"><?php echo $config['google_cloud_storage_service_account']; ?></textarea><small class="admin-info">Should be a JSON file.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="alert alert-info">
+                            Make sure you upload the whole "upload/" folder to your bucket.<br><br>
+                            Make sure to keep (Google Cloud File) on your server. in Google Cloud File Path (<?php echo $config['google_cloud_storage_service_account']?>)<br>
+                        </div>
+                        <div class="drive-settings-alert"></div>
+                        <button type="button" class="btn btn-success m-t-15 waves-effect" onclick="Wo_TestCloud()">Test Cloud Connection</button>
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-title">FTP Settings</h6>
+                    <small>You can upload files directly from your server to another FTP server and load them from there.</small><br>
+                    <small>Impotant: This may slow down your site's upload/delete speed, make sure to use fast FTP server.</small><br><br>
+                    <form class="form login-settings-form" method="POST">
+                        <div class="float-left">
+                            <label for="ftp_upload" class="main-label">FTP Storage</label>
+                            <br><small class="admin-info">Enable FTP Storage to store your files in your own FTP server.</small>
+                        </div>
+                        <div class="form-group float-right switcher">
+                            <input type="hidden" name="ftp_upload" value="0" />
+                            <input type="checkbox" name="ftp_upload" id="chck-ftp_upload" value="1" <?php echo ($config['ftp_upload'] == 1) ? 'checked': '';?>>
+                            <label for="chck-ftp_upload" class="check-trail"><span class="check-handler"></span></label>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">FTP Hostname</label>
+                                <input type="text" name="ftp_host" class="form-control" value="<?php echo $config['ftp_host']?>"><small class="admin-info">Your FTP hostname, could be IP or domain name.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">FTP Username</label>
+                                <input type="text" name="ftp_username" class="form-control" value="<?php echo $config['ftp_username']?>"><small class="admin-info">Your FTP account's username.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">FTP Password</label>
+                                <input type="text" name="ftp_password" class="form-control" value="<?php echo $config['ftp_password']?>"><small class="admin-info">Your FTP account's password.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">FTP Port</label>
+                                <input type="text" name="ftp_port" class="form-control" value="<?php echo $config['ftp_port']?>"><small class="admin-info">Your FTP server's port.</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group">
+                            <div class="form-line">
+                                <label class="form-label" class="main-label">FTP Endpoint</label>
+                                <input type="text" name="ftp_endpoint" class="form-control" value="<?php echo $config['ftp_endpoint']?>"><small class="admin-info">IP or domain where the FTP server is pointed to, example: wowonderftpstorage.com</small>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="alert alert-info">
+                            Before enabling FTP, make sure you upload the whole "upload/" folder to your FTP server.<br><br>
+                        Before disabling FTP, make sure you download the whole "upload/" folder to your server.<br><br>
+                        If your site is still brand new, you can escape the upload step, but make sure to click on "Test Connection".<br>
+                        </div>
+                        <div class="ftp-settings-alert"></div>
+                        <button type="button" class="btn btn-success m-t-15 waves-effect" onclick="Wo_TestFTP()"  id="ftptest">Test FTP Connection</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+<script>
+    function Wo_TestSpaces() {
+        $('form.spaces-settings').find('.btn-success').text('Please wait..');
+        $.get(acpajax_url('test_spaces'), {}, function (data) {
+            if (data.status == 200) {
+                $('.spaces-settings-alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Connection established!</div>');
+                setTimeout(function () {
+                    $('.spaces-settings-alert').empty();
+                }, 2000);
+            } else if (data.status == 300) {
+                $('.spaces-settings-alert').html('<div class="alert alert-danger">Bucket doesn\'t exists</div>');
+                setTimeout(function () {
+                    $('.spaces-settings-alert').empty();
+                }, 2000);
+            } else if (data.status == 500) {
+                $('.spaces-settings-alert').html('<div class="alert alert-danger">Your s3 account doesn\'t have any buckets, please create one.</div>');
+                setTimeout(function () {
+                    $('.spaces-settings-alert').empty();
+                }, 2000);
+            } else if (data.status == 400) {
+                $('.spaces-settings-alert').html('<div class="alert alert-danger">'+data.message+'</div>');
+                setTimeout(function () {
+                    $('.spaces-settings-alert').empty();
+                }, 2000);
+            } else  {
+                $('.spaces-settings-alert').html('<div class="alert alert-danger">Error while connecting to amazone, please check your details</div>');
+                setTimeout(function () {
+                    $('.spaces-settings-alert').empty();
+                }, 2000);
+            }
+            $('form.spaces-settings').find('.btn-success').text('Test Connection');
+        });
+    }
+    function Wo_TestCloud() {
+        $('form.google-settings-form').find('.btn-success').text('Please wait..');
+        $.get(acpajax_url('test_cloud'), {}, function (data) {
+            if (data.status == 200) {
+                $('.drive-settings-alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Connection established!</div>');
+                setTimeout(function () {
+                    $('.drive-settings-alert').empty();
+                }, 2000);
+            } else {
+                $('.drive-settings-alert').html('<div class="alert alert-danger">'+data.message+'</div>');
+                setTimeout(function () {
+                    $('.drive-settings-alert').empty();
+                }, 2000);
+            }
+            $('form.google-settings-form').find('.btn-success').text('Test Cloud Connection');
+        });
+    }
+    function Wo_TestFTP() {
+        $('#ftptest').html('Please wait..');
+        $.get(acpajax_url('test_ftp'), {}, function (data) {
+            if (data.status == 200) {
+                $('.ftp-settings-alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Connection established!</div>');
+            setTimeout(function () {
+                $('.ftp-settings-alert').empty();
+            }, 2000);
+            } else if (data.status == 400) {
+                $('.ftp-settings-alert').html('<div class="alert alert-danger">'+data.message+'</div>');
+            setTimeout(function () {
+                $('.ftp-settings-alert').empty();
+            }, 2000);
+            }
+            $('#ftptest').html('Test FTP Connection');
+        });
+    }
+
+    function Wo_TestS3() {
+        $('#s3test').html('Please wait..');
+        $.get(acpajax_url('test_s3'), {}, function (data) {
+            if (data.status == 200) {
+                $('.general-settings-alert').html('<div class="alert alert-success"><i class="fa fa-check"></i> Connection established!</div>');
+            setTimeout(function () {
+                $('.general-settings-alert').empty();
+            }, 5000);
+            } else if (data.status == 300) {
+                $('.general-settings-alert').html('<div class="alert alert-danger">Bucket doesn\'t exists</div>');
+            setTimeout(function () {
+                $('.general-settings-alert').empty();
+            }, 5000);
+            } else if (data.status == 500) {
+                $('.general-settings-alert').html('<div class="alert alert-danger">Your s3 account doesn\'t have any buckets, please create one.</div>');
+            setTimeout(function () {
+                $('.general-settings-alert').empty();
+            }, 5000);
+            } else if (data.status == 400) {
+                $('.general-settings-alert').html('<div class="alert alert-danger">'+data.message+'</div>');
+            setTimeout(function () {
+                $('.general-settings-alert').empty();
+            }, 5000);
+            } else  {
+                $('.general-settings-alert').html('<div class="alert alert-danger">Error while connecting to amazone, please check your details</div>');
+            setTimeout(function () {
+                $('.general-settings-alert').empty();
+            }, 5000);
+            }
+            $('#s3test').html('Test Connection');
+        });
+    }
+$(function() {
+    $('.switcher input[type=checkbox]').click(function () {
+        var configName = $(this).attr('name');
+        var hash_id = $('input[name=hash_id]').val();
+        var objData = {};
+        if ($(this).is(":checked") === true) {
+            objData[configName] = $(this).val();
+        }
+        else{
+            if ($('input[name='+configName+']')[0]) {
+                objData[configName] = $($('input[name='+configName+']')[0]).val();
+            }
+        }
+        objData['hash_id'] = hash_id;
+        $.post(acpajax_url('storeg-settings'), objData);
+    });
+
+    var setTimeOutColor = setTimeout(function (){});
+    $('select').on('change', function() {
+         clearTimeout(setTimeOutColor);
+        var thisElement = $(this);
+        var configName = thisElement.attr('name');
+        var hash_id = $('input[name=hash_id]').val();
+        var objData = {};
+        objData[configName] = thisElement.val();
+        objData['hash_id'] = hash_id;
+        thisElement.addClass('warning');
+        $.post(acpajax_url('storeg-settings'), objData, function (data) {
+            if (data.status == 200) {
+                thisElement.removeClass('warning');
+                thisElement.addClass('success');
+            } else {
+                thisElement.addClass('error');
+            }
+            var setTimeOutColor = setTimeout(function () {
+                thisElement.removeClass('success');
+                thisElement.removeClass('warning');
+                thisElement.removeClass('error');
+            }, 2000);
+        });
+    });
+    $('input[type=text], input[type=number] , textarea').on('keyup', delay(function() {
+            clearTimeout(setTimeOutColor);
+            var thisElement = $(this);
+            var configName = thisElement.attr('name');
+            var hash_id = $('input[name=hash_id]').val();
+            var objData = {};
+            objData[configName] = this.value;
+            objData['hash_id'] = hash_id;
+            thisElement.addClass('warning');
+            $.post(acpajax_url('storeg-settings'), objData, function (data) {
+                if (data.status == 200) {
+                    thisElement.removeClass('warning');
+                    thisElement.addClass('success');
+                } else {
+                    thisElement.addClass('error');
+                }
+                var setTimeOutColor = setTimeout(function () {
+                    thisElement.removeClass('success');
+                    thisElement.removeClass('warning');
+                    thisElement.removeClass('error');
+                }, 2000);
+                //thisElement.focus();
+            });
+    }, 500));
+});
+</script>

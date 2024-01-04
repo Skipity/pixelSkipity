@@ -1,0 +1,29 @@
+PixelPhoto v1.2 Update Documentation
+// ------------------------------------- //
+
+1) How To Update
+
+- BACKUP, BACKUP, AND BACKUP everything, files, DATABASE. Please BACKUP!
+
+- Upload "update.php" file located on "Update Guide/v1.2" folder to your server.
+
+- Upload and overwrite ALL files/folders (SELECT ALL) file(s) located inside "Update Guide/v1.2/Script/" folder to your server
+
+- Once the files are uploaded, open and run http://www.YOURSITE.COM/update.php and follow the instructions.
+
+- Note: Don't run "update.php" file until all the files are uploaded.
+
+- Refresh your page, Done !
+
+- For more information, please read our FAQ https://docs.pixelphotoscript.com/
+
+// ------------------------------------- //
+
+if you're facing any problems, please contact me so i can help.
+
+Created: 10/13/2017
+Last Update: 06/05/2019
+By: Deen Doughouz (DoughouzForest)
+Email: wowondersocial@gmail.com
+
+Copyright © 2019 PixelPhoto All rights reserved

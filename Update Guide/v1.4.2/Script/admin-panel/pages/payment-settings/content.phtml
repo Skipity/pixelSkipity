@@ -1,0 +1,639 @@
+<?php 
+$playtube_links_on = ($config['playtube_links'] == 'on') ? 'checked' : '';
+$playtube_links_off = ($config['playtube_links'] == 'off') ? 'checked' : '';
+ ?>
+<div class="block-header">
+    <h2 class="breadcrumb">Settings <i class="material-icons">keyboard_arrow_right</i> Payment System Settings</h2>
+</div>
+<div class="row clearfix">
+    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="card">
+            <div class="header">
+                <h2>Payment System Settings (Advertisement system + Pro System)</h2>
+            </div>
+            <div class="body">
+                <div class="clearfix">
+                    <form class="form general-settings-form">
+                        <div class="form-alert"></div>
+
+                        <label for="upload_system">Credit Card Payment Method</label>
+                        <div class="form-group">
+                            <input type="radio" name="credit_card"  value="on" id="credit_card-enabled" <?php echo ($config['credit_card'] == 'on') ? 'checked': '';?>>
+                            <label for="credit_card-enabled" id="credit_card-enabled">Enabled</label>
+                            <input type="radio" name="credit_card" id="credit_card-disabled" value="off" <?php echo ($config['credit_card'] == 'off') ? 'checked': '';?>>
+                            <label for="credit_card-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="stripe_secret" name="stripe_secret" class="form-control" value="<?php echo $config['stripe_secret'];?>">
+                                <label class="form-label">Stripe API Secret Key <small>Your Stripe secret key that starts with sk_</small></label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="stripe_id" name="stripe_id" class="form-control" value="<?php echo $config['stripe_id'];?>">
+                                <label class="form-label">Stripe Publishable Key <small>Your Stripe publishable key that starts with pk_</small></label>
+                            </div>
+                        </div>
+                        <br>
+
+                        <label for="upload_system">Paysera Payment Method</label>
+                        <div class="form-group">
+                            <input type="radio" name="paysera" value="on" id="paysera-enabled" <?php echo ($config['paysera'] == 'on') ? 'checked': '';?>>
+                            <label for="paysera-enabled" id="paysera-enabled">Enabled</label>
+                            <input type="radio" name="paysera" id="paysera-disabled" value="off" <?php echo ($config['paysera'] == 'off') ? 'checked': '';?>>
+                            <label for="paysera-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paysera_project_id" name="paysera_project_id" class="form-control" value="<?php echo $config['paysera_project_id'];?>">
+                                <label class="form-label">Paysera project id</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paysera_password" name="paysera_password" class="form-control" value="<?php echo $config['paysera_password'];?>">
+                                <label class="form-label">Paysera password</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="radio" name="paysera_test_mode" value="test" id="paysera_test_mode-enabled" <?php echo ($config['paysera_test_mode'] == 'test') ? 'checked': '';?>>
+                            <label for="paysera_test_mode-enabled" id="paysera_test_mode-enabled">Test Mode</label>
+                            <input type="radio" name="paysera_test_mode" id="paysera_test_mode-disabled" value="live" <?php echo ($config['paysera_test_mode'] == 'live') ? 'checked': '';?>>
+                            <label for="paysera_test_mode-disabled" class="m-l-20">Live Mode</label>
+                        </div>
+                        <br>
+
+                        <label for="upload_system">Razorpay Payment Method</label>
+                        <div class="form-group">
+                            <input type="radio" name="razorpay" value="on" id="razorpay-enabled" <?php echo ($config['razorpay'] == 'on') ? 'checked': '';?>>
+                            <label for="razorpay-enabled" id="razorpay-enabled">Enabled</label>
+                            <input type="radio" name="razorpay" id="razorpay-disabled" value="off" <?php echo ($config['razorpay'] == 'off') ? 'checked': '';?>>
+                            <label for="razorpay-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="razorpay_key" name="razorpay_key" class="form-control" value="<?php echo $config['razorpay_key'];?>">
+                                <label class="form-label">Razorpay key</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="razorpay_secret" name="razorpay_secret" class="form-control" value="<?php echo $config['razorpay_secret'];?>">
+                                <label class="form-label">Razorpay secret</label>
+                            </div>
+                        </div>
+                        <br><br>
+
+
+                        <label for="upload_system">Paystack Payment Method</label>
+                        <div class="form-group">
+                            <input type="radio" name="paystack" value="on" id="paystack-enabled" <?php echo ($config['paystack'] == 'on') ? 'checked': '';?>>
+                            <label for="paystack-enabled" id="paystack-enabled">Enabled</label>
+                            <input type="radio" name="paystack" id="paystack-disabled" value="off" <?php echo ($config['paystack'] == 'off') ? 'checked': '';?>>
+                            <label for="paystack-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paystack_public_key" name="paystack_public_key" class="form-control" value="<?php echo $config['paystack_public_key'];?>">
+                                <label class="form-label">Paystack public key</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paystack_secret_key" name="paystack_secret_key" class="form-control" value="<?php echo $config['paystack_secret_key'];?>">
+                                <label class="form-label">Paystack secret key</label>
+                            </div>
+                        </div>
+                        <b>Note: Please set paystack callback url to : <?php echo $config['site_url'];?>/aj/paystack/success</b>
+                        <br><br><br
+
+                        <label for="paypal_mode">PayPal Mode</label>
+                        <div class="form-group">
+                            <input type="radio" name="paypal_mode" id="paypal_mode-enabled" value="live" <?php echo ($config['paypal_mode'] == 'live') ? 'checked': '';?>>
+                            <label for="paypal_mode-enabled">Live</label>
+                            <input type="radio" name="paypal_mode" id="paypal_mode-disabled" value="sandbox" <?php echo ($config['paypal_mode'] == 'sandbox') ? 'checked': '';?>>
+                            <label for="paypal_mode-disabled" class="m-l-20">SandBox</label>
+                        </div> 
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paypal_id" name="paypal_id" class="form-control" value="<?php echo $config['paypal_id'];?>">
+                                <label class="form-label">PayPal Clinet ID</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="paypal_secret" name="paypal_secret" class="form-control" value="<?php echo $config['paypal_secret'];?>">
+                                <label class="form-label">PayPal Secret Key</label>
+                            </div>
+                        </div>
+                        <br><br>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="number" id="donate_percentage" name="donate_percentage" class="form-control" value="<?php echo $config['donate_percentage'];?>"  onkeyup="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');">
+                                <label class="form-label">Amount % <small>The price that the user will pay to you for each new user donate</small></label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h2>Local bank payment</h2>
+            </div>
+            <div class="body">
+                
+                <form class="form bank-settings" method="POST">
+                    <div class="form-alert"></div>
+                    <label for="bank_payment">Bank Payment Method </label>
+                    <div class="form-group">
+                        <input type="radio" name="bank_payment" id="bank_payment-enabled" value="on" <?php echo ($config['bank_payment'] == 'on') ? 'checked': '';?>>
+                        <label for="bank_payment-enabled">Enabled</label>
+                        <input type="radio" name="bank_payment" id="bank_payment-disabled" value="off" <?php echo ($config['bank_payment'] == 'off') ? 'checked': '';?>>
+                        <label for="bank_payment-disabled" class="m-l-20">Disabled</label>
+                    </div> 
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <textarea name="bank_description" id="bank_description" class="form-control" cols="30" rows="5"><?php echo $config['bank_description'];?>
+                            </textarea>
+                            <label class="form-label">Bank Description</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line focused">
+                            <textarea name="bank_transfer_note" id="bank_transfer_note" class="form-control" cols="30" rows="5"><?php echo $config['bank_transfer_note'];?></textarea>
+                            <label class="form-label">Bank transfer note</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="col-lg-6 col-md-6">
+        <div class="card">
+            <div class="header">
+                <h2>2Checkout payment</h2>
+            </div>
+            <div class="body">
+                <form class="checkout-settings" method="POST">
+                    <div class="form-alert"></div>
+
+                    <label for="checkout_payment">2Checkout Payment Method </label>
+                    <div class="form-group">
+                        <input type="radio" name="checkout_payment" id="checkout_payment-enabled" value="yes" <?php echo ($config['checkout_payment'] == 'yes') ? 'checked': '';?>>
+                        <label for="checkout_payment-enabled">Enabled</label>
+                        <input type="radio" name="checkout_payment" id="checkout_payment-disabled" value="no" <?php echo ($config['checkout_payment'] == 'no') ? 'checked': '';?>>
+                        <label for="checkout_payment-disabled" class="m-l-20">Disabled</label>
+                    </div>
+                    <label for="checkout_mode">2Checkout Mode</label>
+                    <div class="form-group">
+                        <input type="radio" name="checkout_mode" id="checkout_mode-enabled" value="live" <?php echo ($config['checkout_mode'] == 'live') ? 'checked': '';?>>
+                        <label for="checkout_mode-enabled">Live</label>
+                        <input type="radio" name="checkout_mode" id="checkout_mode-disabled" value="sandbox" <?php echo ($config['checkout_mode'] == 'sandbox') ? 'checked': '';?>>
+                        <label for="checkout_mode-disabled" class="m-l-20">SandBox</label>
+                    </div> 
+                    <br>
+                    <label for="checkout_currency">2Checkout Currency</label>
+                    <select class="form-control show-tick" id="checkout_currency" name="checkout_currency">
+                        <option value="USD" <?php echo ($config['checkout_currency'] == 'USD')  ? ' selected': '';?>>USD</option>
+                        <option value="EUR" <?php echo ($config['checkout_currency'] == 'EUR')  ? ' selected': '';?>>EUR</option>
+                        <option value="AED" <?php echo ($config['checkout_currency'] == 'AED')  ? ' selected': '';?>>AED</option>
+                        <option value="AFN" <?php echo ($config['checkout_currency'] == 'AFN')  ? ' selected': '';?>>AFN</option>
+                        <option value="ALL" <?php echo ($config['checkout_currency'] == 'ALL')  ? ' selected': '';?>>ALL</option>
+                        <option value="ARS" <?php echo ($config['checkout_currency'] == 'ARS')  ? ' selected': '';?>>ARS</option>
+                        <option value="AUD" <?php echo ($config['checkout_currency'] == 'AUD')  ? ' selected': '';?>>AUD</option>
+                        <option value="AZN" <?php echo ($config['checkout_currency'] == 'AZN')  ? ' selected': '';?>>AZN</option>
+                        <option value="BBD" <?php echo ($config['checkout_currency'] == 'BBD')  ? ' selected': '';?>>BBD</option>
+                        <option value="BDT" <?php echo ($config['checkout_currency'] == 'BDT')  ? ' selected': '';?>>BDT</option>
+                        <option value="BGN" <?php echo ($config['checkout_currency'] == 'BGN')  ? ' selected': '';?>>BGN</option>
+                        <option value="BMD" <?php echo ($config['checkout_currency'] == 'BMD')  ? ' selected': '';?>>BMD</option>
+                        <option value="BND" <?php echo ($config['checkout_currency'] == 'BND')  ? ' selected': '';?>>BND</option>
+                        <option value="BOB" <?php echo ($config['checkout_currency'] == 'BOB')  ? ' selected': '';?>>BOB</option>
+                        <option value="BRL" <?php echo ($config['checkout_currency'] == 'BRL')  ? ' selected': '';?>>BRL</option>
+                        <option value="BSD" <?php echo ($config['checkout_currency'] == 'BSD')  ? ' selected': '';?>>BSD</option>
+                        <option value="BWP" <?php echo ($config['checkout_currency'] == 'BWP')  ? ' selected': '';?>>BWP</option>
+                        <option value="BYN" <?php echo ($config['checkout_currency'] == 'BYN')  ? ' selected': '';?>>BYN</option>
+                        <option value="BZD" <?php echo ($config['checkout_currency'] == 'BZD')  ? ' selected': '';?>>BZD</option>
+                        <option value="CAD" <?php echo ($config['checkout_currency'] == 'CAD')  ? ' selected': '';?>>CAD</option>
+                        <option value="CHF" <?php echo ($config['checkout_currency'] == 'CHF')  ? ' selected': '';?>>CHF</option>
+                        <option value="CLP" <?php echo ($config['checkout_currency'] == 'CLP')  ? ' selected': '';?>>CLP</option>
+                        <option value="CNY" <?php echo ($config['checkout_currency'] == 'CNY')  ? ' selected': '';?>>CNY</option>
+                        <option value="COP" <?php echo ($config['checkout_currency'] == 'COP')  ? ' selected': '';?>>COP</option>
+                        <option value="CRC" <?php echo ($config['checkout_currency'] == 'CRC')  ? ' selected': '';?>>CRC</option>
+                        <option value="CZK" <?php echo ($config['checkout_currency'] == 'CZK')  ? ' selected': '';?>>CZK</option>
+                        <option value="DKK" <?php echo ($config['checkout_currency'] == 'DKK')  ? ' selected': '';?>>DKK</option>
+                        <option value="DOP" <?php echo ($config['checkout_currency'] == 'DOP')  ? ' selected': '';?>>DOP</option>
+                        <option value="DZD" <?php echo ($config['checkout_currency'] == 'DZD')  ? ' selected': '';?>>DZD</option>
+                        <option value="EGP" <?php echo ($config['checkout_currency'] == 'EGP')  ? ' selected': '';?>>EGP</option>
+                        <option value="FJD" <?php echo ($config['checkout_currency'] == 'FJD')  ? ' selected': '';?>>FJD</option>
+                        <option value="GBP" <?php echo ($config['checkout_currency'] == 'GBP')  ? ' selected': '';?>>GBP</option>
+                        <option value="GTQ" <?php echo ($config['checkout_currency'] == 'GTQ')  ? ' selected': '';?>>GTQ</option>
+                        <option value="HKD" <?php echo ($config['checkout_currency'] == 'HKD')  ? ' selected': '';?>>HKD</option>
+                        <option value="HNL" <?php echo ($config['checkout_currency'] == 'HNL')  ? ' selected': '';?>>HNL</option>
+                        <option value="HRK" <?php echo ($config['checkout_currency'] == 'HRK')  ? ' selected': '';?>>HRK</option>
+                        <option value="HUF" <?php echo ($config['checkout_currency'] == 'HUF')  ? ' selected': '';?>>HUF</option>
+                        <option value="IDR" <?php echo ($config['checkout_currency'] == 'IDR')  ? ' selected': '';?>>IDR</option>
+                        <option value="ILS" <?php echo ($config['checkout_currency'] == 'ILS')  ? ' selected': '';?>>ILS</option>
+                        <option value="INR" <?php echo ($config['checkout_currency'] == 'INR')  ? ' selected': '';?>>INR</option>
+                        <option value="JMD" <?php echo ($config['checkout_currency'] == 'JMD')  ? ' selected': '';?>>JMD</option>
+                        <option value="JOD" <?php echo ($config['checkout_currency'] == 'JOD')  ? ' selected': '';?>>JOD</option>
+                        <option value="JPY" <?php echo ($config['checkout_currency'] == 'JPY')  ? ' selected': '';?>>JPY</option>
+                        <option value="KES" <?php echo ($config['checkout_currency'] == 'KES')  ? ' selected': '';?>>KES</option>
+                        <option value="KRW" <?php echo ($config['checkout_currency'] == 'KRW')  ? ' selected': '';?>>KRW</option>
+                        <option value="KWD" <?php echo ($config['checkout_currency'] == 'KWD')  ? ' selected': '';?>>KWD</option>
+                        <option value="KZT" <?php echo ($config['checkout_currency'] == 'KZT')  ? ' selected': '';?>>KZT</option>
+                        <option value="LAK" <?php echo ($config['checkout_currency'] == 'LAK')  ? ' selected': '';?>>LAK</option>
+                        <option value="LBP" <?php echo ($config['checkout_currency'] == 'LBP')  ? ' selected': '';?>>LBP</option>
+                        <option value="LKR" <?php echo ($config['checkout_currency'] == 'LKR')  ? ' selected': '';?>>LKR</option>
+                        <option value="LRD" <?php echo ($config['checkout_currency'] == 'LRD')  ? ' selected': '';?>>LRD</option>
+                        <option value="MAD" <?php echo ($config['checkout_currency'] == 'MAD')  ? ' selected': '';?>>MAD</option>
+                        <option value="MDL" <?php echo ($config['checkout_currency'] == 'MDL')  ? ' selected': '';?>>MDL</option>
+                        <option value="MMK" <?php echo ($config['checkout_currency'] == 'MMK')  ? ' selected': '';?>>MMK</option>
+                        <option value="MOP" <?php echo ($config['checkout_currency'] == 'MOP')  ? ' selected': '';?>>MOP</option>
+                        <option value="MRO" <?php echo ($config['checkout_currency'] == 'MRO')  ? ' selected': '';?>>MRO</option>
+                        <option value="MUR" <?php echo ($config['checkout_currency'] == 'MUR')  ? ' selected': '';?>>MUR</option>
+                        <option value="MVR" <?php echo ($config['checkout_currency'] == 'MVR')  ? ' selected': '';?>>MVR</option>
+                        <option value="MXN" <?php echo ($config['checkout_currency'] == 'MXN')  ? ' selected': '';?>>MXN</option>
+                        <option value="MYR" <?php echo ($config['checkout_currency'] == 'MYR')  ? ' selected': '';?>>MYR</option>
+                        <option value="NAD" <?php echo ($config['checkout_currency'] == 'NAD')  ? ' selected': '';?>>NAD</option>
+                        <option value="NGN" <?php echo ($config['checkout_currency'] == 'NGN')  ? ' selected': '';?>>NGN</option>
+                        <option value="NIO" <?php echo ($config['checkout_currency'] == 'NIO')  ? ' selected': '';?>>NIO</option>
+                        <option value="NOK" <?php echo ($config['checkout_currency'] == 'NOK')  ? ' selected': '';?>>NOK</option>
+                        <option value="NPR" <?php echo ($config['checkout_currency'] == 'NPR')  ? ' selected': '';?>>NPR</option>
+                        <option value="NZD" <?php echo ($config['checkout_currency'] == 'NZD')  ? ' selected': '';?>>NZD</option>
+                        <option value="OMR" <?php echo ($config['checkout_currency'] == 'OMR')  ? ' selected': '';?>>OMR</option>
+                        <option value="PEN" <?php echo ($config['checkout_currency'] == 'PEN')  ? ' selected': '';?>>PEN</option>
+                        <option value="PGK" <?php echo ($config['checkout_currency'] == 'PGK')  ? ' selected': '';?>>PGK</option>
+                        <option value="PHP" <?php echo ($config['checkout_currency'] == 'PHP')  ? ' selected': '';?>>PHP</option>
+                        <option value="PKR" <?php echo ($config['checkout_currency'] == 'PKR')  ? ' selected': '';?>>PKR</option>
+                        <option value="PLN" <?php echo ($config['checkout_currency'] == 'PLN')  ? ' selected': '';?>>PLN</option>
+                        <option value="PYG" <?php echo ($config['checkout_currency'] == 'PYG')  ? ' selected': '';?>>PYG</option>
+                        <option value="QAR" <?php echo ($config['checkout_currency'] == 'QAR')  ? ' selected': '';?>>QAR</option>
+                        <option value="RON" <?php echo ($config['checkout_currency'] == 'RON')  ? ' selected': '';?>>RON</option>
+                        <option value="RSD" <?php echo ($config['checkout_currency'] == 'RSD')  ? ' selected': '';?>>RSD</option>
+                        <option value="RUB" <?php echo ($config['checkout_currency'] == 'RUB')  ? ' selected': '';?>>RUB</option>
+                        <option value="SAR" <?php echo ($config['checkout_currency'] == 'SAR')  ? ' selected': '';?>>SAR</option>
+                        <option value="SBD" <?php echo ($config['checkout_currency'] == 'SBD')  ? ' selected': '';?>>SBD</option>
+                        <option value="SCR" <?php echo ($config['checkout_currency'] == 'SCR')  ? ' selected': '';?>>SCR</option>
+                        <option value="SEK" <?php echo ($config['checkout_currency'] == 'SEK')  ? ' selected': '';?>>SEK</option>
+                        <option value="SGD" <?php echo ($config['checkout_currency'] == 'SGD')  ? ' selected': '';?>>SGD</option>
+                        <option value="SYP" <?php echo ($config['checkout_currency'] == 'SYP')  ? ' selected': '';?>>SYP</option>
+                        <option value="THB" <?php echo ($config['checkout_currency'] == 'THB')  ? ' selected': '';?>>THB</option>
+                        <option value="TND" <?php echo ($config['checkout_currency'] == 'TND')  ? ' selected': '';?>>TND</option>
+                        <option value="TOP" <?php echo ($config['checkout_currency'] == 'TOP')  ? ' selected': '';?>>TOP</option>
+                        <option value="TRY" <?php echo ($config['checkout_currency'] == 'TRY')  ? ' selected': '';?>>TRY</option>
+                        <option value="TTD" <?php echo ($config['checkout_currency'] == 'TTD')  ? ' selected': '';?>>TTD</option>
+                        <option value="TWD" <?php echo ($config['checkout_currency'] == 'TWD')  ? ' selected': '';?>>TWD</option>
+                        <option value="UAH" <?php echo ($config['checkout_currency'] == 'UAH')  ? ' selected': '';?>>UAH</option>
+                        <option value="UYU" <?php echo ($config['checkout_currency'] == 'UYU')  ? ' selected': '';?>>UYU</option>
+                        <option value="VND" <?php echo ($config['checkout_currency'] == 'VND')  ? ' selected': '';?>>VND</option>
+                        <option value="VUV" <?php echo ($config['checkout_currency'] == 'VUV')  ? ' selected': '';?>>VUV</option>
+                        <option value="WST" <?php echo ($config['checkout_currency'] == 'WST')  ? ' selected': '';?>>WST</option>
+                        <option value="XCD" <?php echo ($config['checkout_currency'] == 'XCD')  ? ' selected': '';?>>XCD</option>
+                        <option value="XOF" <?php echo ($config['checkout_currency'] == 'XOF')  ? ' selected': '';?>>XOF</option>
+                        <option value="YER" <?php echo ($config['checkout_currency'] == 'YER')  ? ' selected': '';?>>YER</option>
+                        <option value="ZAR" <?php echo ($config['checkout_currency'] == 'ZAR')  ? ' selected': '';?>>ZAR</option>
+                    </select>
+                    <div class="clearfix"></div>
+                    <br>
+                    <br>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" id="checkout_seller_id" name="checkout_seller_id" class="form-control" value="<?php echo $config['checkout_seller_id'];?>">
+                            <label class="form-label">Seller ID</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" id="checkout_publishable_key" name="checkout_publishable_key" class="form-control" value="<?php echo $config['checkout_publishable_key'];?>">
+                            <label class="form-label">Publishable Key</label>
+                        </div>
+                    </div>
+                    <div class="form-group form-float">
+                        <div class="form-line">
+                            <input type="text" id="checkout_private_key" name="checkout_private_key" class="form-control" value="<?php echo $config['checkout_private_key'];?>">
+                            <label class="form-label">Private Key</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+        <div class="col-lg-6 col-md-6 pull-left">
+            <div class="card">
+                <div class="header">
+                    <h2>Cashfree payment</h2>
+                </div>
+                <div class="body">
+                    <form class="cashfree-settings" method="POST">
+                        <div class="form-alert"></div>
+                        <label for="cashfree_payment">Cashfree Payment Method </label>
+                        <div class="form-group">
+                            <input type="radio" name="cashfree_payment" id="cashfree_payment-enabled" value="yes" <?php echo ($config['cashfree_payment'] == 'yes') ? 'checked': '';?>>
+                            <label for="cashfree_payment-enabled">Enabled</label>
+                            <input type="radio" name="cashfree_payment" id="cashfree_payment-disabled" value="no" <?php echo ($config['cashfree_payment'] == 'no') ? 'checked': '';?>>
+                            <label for="cashfree_payment-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="cashfree_mode">Cashfree Mode</label>
+                        <div class="form-group">
+                            <input type="radio" name="cashfree_mode" id="cashfree_mode-enabled" value="sandBox" <?php echo ($config['cashfree_mode'] == 'sandBox') ? 'checked': '';?>>
+                            <label for="cashfree_mode-enabled">SandBox</label>
+                            <input type="radio" name="cashfree_mode" id="cashfree_mode-disabled" value="live" <?php echo ($config['cashfree_mode'] == 'live') ? 'checked': '';?>>
+                            <label for="cashfree_mode-disabled" class="m-l-20">Live</label>
+                        </div> 
+                        <div class="clearfix"></div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="cashfree_client_key" name="cashfree_client_key" class="form-control" value="<?php echo $config['cashfree_client_key'];?>">
+                                <label class="form-label">Client Id</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="cashfree_secret_key" name="cashfree_secret_key" class="form-control" value="<?php echo $config['cashfree_secret_key'];?>">
+                                <label class="form-label">Client Secret</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 pull-right">
+            <div class="card">
+                <div class="header">
+                    <h2>Iyzipay payment</h2>
+                </div>
+                <div class="body">
+                    <form class="iyzipay-settings" method="POST">
+                        <div class="form-alert"></div>
+                        <label for="iyzipay_payment">Iyzipay Payment Method </label>
+                        <div class="form-group">
+                            <input type="radio" name="iyzipay_payment" id="iyzipay_payment-enabled" value="yes" <?php echo ($config['iyzipay_payment'] == 'yes') ? 'checked': '';?>>
+                            <label for="iyzipay_payment-enabled">Enabled</label>
+                            <input type="radio" name="iyzipay_payment" id="iyzipay_payment-disabled" value="no" <?php echo ($config['iyzipay_payment'] == 'no') ? 'checked': '';?>>
+                            <label for="iyzipay_payment-disabled" class="m-l-20">Disabled</label>
+                        </div>
+                        <label for="iyzipay_mode">Iyzipay Mode</label>
+                        <div class="form-group">
+                            <input type="radio" name="iyzipay_mode" id="iyzipay_mode-enabled" value="0" <?php echo ($config['iyzipay_mode'] == '0') ? 'checked': '';?>>
+                            <label for="iyzipay_mode-enabled">Live</label>
+                            <input type="radio" name="iyzipay_mode" id="iyzipay_mode-disabled" value="1" <?php echo ($config['iyzipay_mode'] == '1') ? 'checked': '';?>>
+                            <label for="iyzipay_mode-disabled" class="m-l-20">SandBox</label>
+                        </div> 
+                        <div class="clearfix"></div>
+
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_key" name="iyzipay_key" class="form-control" value="<?php echo $config['iyzipay_key'];?>">
+                                <label class="form-label">Iyzipay Key</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_secret_key" name="iyzipay_secret_key" class="form-control" value="<?php echo $config['iyzipay_secret_key'];?>">
+                                <label class="form-label">Iyzipay Secret Key</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_buyer_id" name="iyzipay_buyer_id" class="form-control" value="<?php echo $config['iyzipay_buyer_id'];?>">
+                                <label class="form-label">Iyzipay Buyer Id</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_buyer_name" name="iyzipay_buyer_name" class="form-control" value="<?php echo $config['iyzipay_buyer_name'];?>">
+                                <label class="form-label">Iyzipay Buyer Name</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_buyer_surname" name="iyzipay_buyer_surname" class="form-control" value="<?php echo $config['iyzipay_buyer_surname'];?>">
+                                <label class="form-label">Iyzipay Buyer Surname</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_buyer_gsm_number" name="iyzipay_buyer_gsm_number" class="form-control" value="<?php echo $config['iyzipay_buyer_gsm_number'];?>">
+                                <label class="form-label">Iyzipay Buyer Gsm Number (+905350000000)</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_buyer_email" name="iyzipay_buyer_email" class="form-control" value="<?php echo $config['iyzipay_buyer_email'];?>">
+                                <label class="form-label">Iyzipay Buyer Email</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_identity_number" name="iyzipay_identity_number" class="form-control" value="<?php echo $config['iyzipay_identity_number'];?>">
+                                <label class="form-label">Iyzipay Buyer Identity Number</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_address" name="iyzipay_address" class="form-control" value="<?php echo $config['iyzipay_address'];?>">
+                                <label class="form-label">Iyzipay Buyer Address</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_city" name="iyzipay_city" class="form-control" value="<?php echo $config['iyzipay_city'];?>">
+                                <label class="form-label">Iyzipay Buyer City</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_country" name="iyzipay_country" class="form-control" value="<?php echo $config['iyzipay_country'];?>">
+                                <label class="form-label">Iyzipay Buyer Country</label>
+                            </div>
+                        </div>
+                        <div class="form-group form-float">
+                            <div class="form-line">
+                                <input type="text" id="iyzipay_zip" name="iyzipay_zip" class="form-control" value="<?php echo $config['iyzipay_zip'];?>">
+                                <label class="form-label">Iyzipay Buyer Zip</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary m-t-15 waves-effect">Save</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+
+</div>
+
+<script>
+    jQuery(document).ready(function($) {
+        var gsform = $("form.general-settings-form");
+        var bankform = $("form.bank-settings");
+        var checkout = $("form.checkout-settings");
+        var cashfree = $("form.cashfree-settings");
+        var iyzipay = $("form.iyzipay-settings");
+
+        gsform.ajaxForm({
+            url: acpajax_url('general-settings'),
+            type: 'POST',
+            dataType: 'json',
+            beforeSubmit: function(arr,form){
+                $(form).find('button[type=submit]').text('Please wait.').attr('disabled', 'true');
+            },
+            success: function(data, status, xhr, form){
+                if (data.status == 200) {
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-success',
+                        text:'Settings has been updated successfully'
+                    }));
+                    setTimeout(function(){
+                        gsform.find('div.form-alert .alert').slideUp('fast',function(){
+                            $(this).remove(); 
+                        })    
+                    },1000);
+                }
+                else{
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-warning',
+                        text: data.error
+                    }));
+                }
+
+                gsform.find('button[type=submit]').text('Save').removeAttr('disabled');
+            }
+        });
+
+        bankform.ajaxForm({
+            url: acpajax_url('general-settings'),
+            type: 'POST',
+            dataType: 'json',
+            beforeSubmit: function(arr,form){
+                $(form).find('button[type=submit]').text('Please wait.').attr('disabled', 'true');
+            },
+            success: function(data, status, xhr, form){
+                if (data.status == 200) {
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-success',
+                        text:'Settings has been updated successfully'
+                    }));
+                    setTimeout(function(){
+                        bankform.find('div.form-alert .alert').slideUp('fast',function(){
+                            $(this).remove(); 
+                        })    
+                    },1000);
+                }
+                else{
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-warning',
+                        text: data.error
+                    }));
+                }
+
+                bankform.find('button[type=submit]').text('Save').removeAttr('disabled');
+            }
+        });
+
+        checkout.ajaxForm({
+            url: acpajax_url('general-settings'),
+            type: 'POST',
+            dataType: 'json',
+            beforeSubmit: function(arr,form){
+                $(form).find('button[type=submit]').text('Please wait.').attr('disabled', 'true');
+            },
+            success: function(data, status, xhr, form){
+                if (data.status == 200) {
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-success',
+                        text:'Settings has been updated successfully'
+                    }));
+                    setTimeout(function(){
+                        checkout.find('div.form-alert .alert').slideUp('fast',function(){
+                            $(this).remove(); 
+                        })    
+                    },1000);
+                }
+                else{
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-warning',
+                        text: data.error
+                    }));
+                }
+
+                checkout.find('button[type=submit]').text('Save').removeAttr('disabled');
+            }
+        });
+
+        cashfree.ajaxForm({
+            url: acpajax_url('general-settings'),
+            type: 'POST',
+            dataType: 'json',
+            beforeSubmit: function(arr,form){
+                $(form).find('button[type=submit]').text('Please wait.').attr('disabled', 'true');
+            },
+            success: function(data, status, xhr, form){
+                if (data.status == 200) {
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-success',
+                        text:'Settings has been updated successfully'
+                    }));
+                    setTimeout(function(){
+                        cashfree.find('div.form-alert .alert').slideUp('fast',function(){
+                            $(this).remove(); 
+                        })    
+                    },1000);
+                }
+                else{
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-warning',
+                        text: data.error
+                    }));
+                }
+
+                cashfree.find('button[type=submit]').text('Save').removeAttr('disabled');
+            }
+        });
+
+        iyzipay.ajaxForm({
+            url: acpajax_url('general-settings'),
+            type: 'POST',
+            dataType: 'json',
+            beforeSubmit: function(arr,form){
+                $(form).find('button[type=submit]').text('Please wait.').attr('disabled', 'true');
+            },
+            success: function(data, status, xhr, form){
+                if (data.status == 200) {
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-success',
+                        text:'Settings has been updated successfully'
+                    }));
+                    setTimeout(function(){
+                        iyzipay.find('div.form-alert .alert').slideUp('fast',function(){
+                            $(this).remove(); 
+                        })    
+                    },1000);
+                }
+                else{
+                    $(form).find('div.form-alert').scroll2().html($('<div>',{
+                        class:'alert alert-warning',
+                        text: data.error
+                    }));
+                }
+
+                iyzipay.find('button[type=submit]').text('Save').removeAttr('disabled');
+            }
+        });
+    });
+</script>
